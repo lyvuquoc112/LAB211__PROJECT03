@@ -5,6 +5,7 @@
 package dispatcher;
 
 import business.KOLManager;
+import java.util.HashMap;
 
 
 /**
@@ -12,10 +13,11 @@ import business.KOLManager;
  * @author hanly
  */
 public class Main {
-
+       private static final String REGISTRATION_FILE = "kol_registration file";
     public static void main(String[] args) {
+        
         // 1. Khởi tạo các đối tượng quản lý
-        KOLManager kolManager = new KOLManager();
+        KOLManager kolManager = new KOLManager(REGISTRATION_FILE,new HashMap<>());
 
         // 2. Khởi tạo và chạy menu
         Menu menu = new Menu(kolManager);

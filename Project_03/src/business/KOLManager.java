@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import model.KOL;
+import tool.Inputter;
 
 /**
  *
@@ -22,6 +23,7 @@ public class KOLManager implements Workable<KOL, String> {
     private boolean saved;
     private String pathFile;
     private final HashMap<String, KOL> kolMap;
+    private Inputter inputter;
 
     public KOLManager() {
         this.kolMap = new HashMap<>();
@@ -79,7 +81,7 @@ public class KOLManager implements Workable<KOL, String> {
         System.out.println("--------------------------------------------------------------------------");
         
         for (KOL kol : kolMap.values()) {
-            System.out.printf("%-10s | %-32s | %-12s | %-15s | %10d | %10d%\n",
+            System.out.printf("%-10s | %-32s | %-12s | %-15s | %10d | %10d%%%n",
                     kol.getId(),
                     kol.getName(),
                     kol.getPhone(),
@@ -126,7 +128,7 @@ public class KOLManager implements Workable<KOL, String> {
                 "KOL ID", "Name", "Phone", "Platform", "Followers", "Commission");
         System.out.println("--------------------------------------------------------------------------");
         for (KOL kol : list) {
-            System.out.printf("%-10s | %-32s | %-12s | %-15s | %10d | %10d%\n",
+            System.out.printf("%-10s | %-32s | %-12s | %-15s | %10d | %10d%%%n",
                     kol.getId(),
                     kol.getName(),
                     kol.getPhone(),
@@ -153,7 +155,7 @@ public class KOLManager implements Workable<KOL, String> {
                 "KOL ID", "Name", "Phone", "Platform", "Followers", "Commission");
         System.out.println("-----------------------------------------------------------------------------");
         for (KOL kol : list) {
-            System.out.printf("%-10s | %-13s | %-10s | %-9s | %10d | %8d%n",
+            System.out.printf("%-10s | %-13s | %-10s | %-9s | %10d | %8d%%%n",
                     kol.getId(),
                     kol.getName(),
                     kol.getPhone(),
@@ -212,7 +214,7 @@ public class KOLManager implements Workable<KOL, String> {
         System.out.println("-----------------------------------------------------------------");
     }
     
-     public void saveGuestInfo() {
+     public void saveDataRegistrationToFile() {
         if(this.saved){
             return;
         }
@@ -234,5 +236,20 @@ public class KOLManager implements Workable<KOL, String> {
         }
     }
 
-    
+     public void exit(){
+         if (!saved) {
+            String confirm = inputter.input("You have unsaved changes. Do you want to save the changes before exiting? (Y/N)", "Invalid", "^[YyNn]$");
+            if (confirm.equalsIgnoreCase("Y")) {
+                saveDataRegistrationToFile();
+                System.out.println("Goodbye!");
+            } else {
+                String confirm2 = inputter.input("Are you sure you want to exit without saving? (Y/N)", "Invalid", "^[YyNn]$");
+                if (confirm2.equalsIgnoreCase("Y")) {
+                    System.out.println("Goodbye!");
+                }
+            }
+        } else {
+            System.out.println("Goodbye!");
+        }
+     }
 }

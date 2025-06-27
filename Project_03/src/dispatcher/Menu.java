@@ -37,6 +37,12 @@ public class Menu {
         this.scanner = new Scanner(System.in);
         this.kolManager = kolManager;
         this.inputter = new Inputter();
+        
+         // Tạo sẵn dữ liệu mẫu
+    kolManager.addNew(new KOL("BT123456", "Nguyen Van A", "0987654321", "a@gmail.com", "TK01", 1500000));
+    kolManager.addNew(new KOL("FS654321", "Tran Ha Linh", "0902345678", "b@gmail.com", "FB01", 750000));
+    kolManager.addNew(new KOL("GM111111", "Le Minh Quan", "0911222333", "c@gmail.com", "YT01", 2000000));
+    kolManager.addNew(new KOL("TL222222", "Pham Thi B", "0933444555", "d@gmail.com", "IG01", 500000));
     }
 
     private static void showMenu() {
@@ -112,9 +118,8 @@ public class Menu {
     }
 
     private static void handelSerachKOLSByName() {
-        String kolName = inputter.input("Input KOL Name",
-                "Cannot be empty and length must be between 5 and 30 characters",
-                Validator.NAME_REGEX);
+        System.out.println("Input KOL Name");
+        String kolName = scanner.nextLine();
         List<KOL> list = kolManager.filterByName(kolName);
         if (!list.isEmpty()) {
             kolManager.displayKolByName(list);
@@ -134,6 +139,18 @@ public class Menu {
             System.out.println("No one matches the search criteria!");
         }
     }
+    
+    private static void handelStatisticsOfRegistrationNumberByPlatfrom() {
+        kolManager.displayPlatformStatistics();
+    }
+    
+    private static void handelSaveDateToRegistrationFile() {
+        kolManager.saveDataRegistrationToFile();
+    }
+    
+    private static void handelExitTheProgram() {
+        
+            }
 
     private static void processMenuChoice(int testCase) {
         switch (testCase) {
@@ -156,13 +173,13 @@ public class Menu {
                 handelFilterDataByCategory();
                 break;
             case STATISTICS_OF_REGISTRATION_NUMBER_BY_PLATFORM:
-                //handelListVacantRooms();
+                handelStatisticsOfRegistrationNumberByPlatfrom();
                 break;
             case SAVE_DATA_TO_REGISTRATION_FILE:
-                //handelMonthlyRevenueReport();
+                handelSaveDateToRegistrationFile();
                 break;
             case EXIT_THE_PROGRAM:
-                //handelRevenueReportByRoomType();
+                handelExitTheProgram();
                 break;
             default:
                 System.out.println("\nInvalid choice! Please try again.");

@@ -4,13 +4,14 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
  * @author hanly
  */
-public class KOL {
+public class KOL implements Serializable{
 
     private String id;
     private String name;
